@@ -1,0 +1,97 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix schema: <http://schema.org/> .
+@prefix bgg: <http://example.org/ontology/> .
+
+# ==============================================================================
+# 1. DEFINICE ONTOLOGIE (Hlavička)
+# ==============================================================================
+# Definuje základní metadata celého slovníku.
+# Obsahuje anglický i český popis účelu ontologie.
+
+bgg: a owl:Ontology ;
+    rdfs:label "Board Game Graph Ontology"@en ;
+    rdfs:label "Ontologie grafu deskových her"@cs ;
+    rdfs:comment "A vocabulary for describing board game mechanics, statistics, and relations."@en ;
+    rdfs:comment "Slovník pro popis herních mechanik, statistik a vztahů mezi deskovými hrami."@cs .
+
+# ==============================================================================
+# 2. DEFINICE VLASTNOSTÍ (Properties)
+# ==============================================================================
+
+# ---------------------------------------------------------
+# A) Datové vlastnosti (Atributy s hodnotami)
+# ---------------------------------------------------------
+# Tyto vlastnosti spojují hru (schema:Game) s literálními hodnotami 
+# (čísla, texty), např. počet hráčů nebo herní doba.
+
+bgg:minPlayers a owl:DatatypeProperty ;
+    rdfs:label "Minimum Players"@en ;
+    rdfs:label "Minimální počet hráčů"@cs ;
+    rdfs:domain schema:Game ;
+    rdfs:range xsd:integer .
+
+bgg:maxPlayers a owl:DatatypeProperty ;
+    rdfs:label "Maximum Players"@en ;
+    rdfs:label "Maximální počet hráčů"@cs ;
+    rdfs:domain schema:Game ;
+    rdfs:range xsd:integer .
+
+bgg:minPlaytime a owl:DatatypeProperty ;
+    rdfs:label "Minimum Playtime (min)"@en ;
+    rdfs:label "Minimální herní doba (min)"@cs ;
+    rdfs:domain schema:Game ;
+    rdfs:range xsd:integer .
+
+bgg:maxPlaytime a owl:DatatypeProperty ;
+    rdfs:label "Maximum Playtime (min)"@en ;
+    rdfs:label "Maximální herní doba (min)"@cs ;
+    rdfs:domain schema:Game ;
+    rdfs:range xsd:integer .
+
+bgg:playingTime a owl:DatatypeProperty ;
+    rdfs:label "Average Playing Time (min)"@en ;
+    rdfs:label "Průměrná herní doba (min)"@cs ;
+    rdfs:domain schema:Game ;
+    rdfs:range xsd:integer .
+
+bgg:minAge a owl:DatatypeProperty ;
+    rdfs:label "Minimum Age"@en ;
+    rdfs:label "Minimální věk"@cs ;
+    rdfs:domain schema:Game ;
+    rdfs:range xsd:integer .
+
+bgg:ratingValue a owl:DatatypeProperty ;
+    rdfs:label "Average Rating"@en ;
+    rdfs:label "Průměrné hodnocení"@cs ;
+    rdfs:domain schema:Game ;
+    rdfs:range xsd:decimal .
+
+bgg:ratingCount a owl:DatatypeProperty ;
+    rdfs:label "Number of Ratings"@en ;
+    rdfs:label "Počet hodnocení"@cs ;
+    rdfs:domain schema:Game ;
+    rdfs:range xsd:integer .
+
+# ---------------------------------------------------------
+# B) Objektové vlastnosti (Vazby mezi entitami)
+# ---------------------------------------------------------
+# Tyto vlastnosti definují vztahy mezi hrou a jinými zdroji (URI),
+# například vazbu na mechaniku nebo rozšíření.
+
+bgg:hasMechanic a owl:ObjectProperty ;
+    rdfs:label "Has Mechanic"@en ;
+    rdfs:label "Má mechaniku"@cs ;
+    rdfs:comment "Links a game to a specific game mechanic."@en ;
+    rdfs:comment "Propojuje hru s konkrétní herní mechanikou."@cs ;
+    rdfs:domain schema:Game . 
+
+bgg:hasExpansion a owl:ObjectProperty ;
+    rdfs:label "Has Expansion"@en ;
+    rdfs:label "Má rozšíření"@cs ;
+    rdfs:comment "Links a base game to its expansion packs."@en ;
+    rdfs:comment "Propojuje základní hru s jejími rozšířeními."@cs ;
+    rdfs:domain schema:Game ;
+    rdfs:range schema:Game .
